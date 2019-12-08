@@ -197,7 +197,7 @@ echo "      : Source code:  https://github.com/openmaptiles/import-water "
 echo "      : Data license: https://osmdata.openstreetmap.de/info/license.html "
 echo "      : Thank you: https://osmdata.openstreetmap.de/info/ "
 docker-compose run --rm import-water &
-$importwaterpid=$!
+importwaterpid=$!
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -206,7 +206,7 @@ echo "      : Source code:  https://github.com/openmaptiles/import-osmborder"
 echo "      : Data license: http://www.openstreetmap.org/copyright"
 echo "      : Thank you: https://github.com/pnorman/osmborder "
 docker-compose run --rm import-osmborder &
-$importborderpid=$!
+importborderpid=$!
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -215,7 +215,7 @@ echo "      : Source code: https://github.com/openmaptiles/import-natural-earth 
 echo "      : Terms-of-use: http://www.naturalearthdata.com/about/terms-of-use  "
 echo "      : Thank you: Natural Earth Contributors! "
 docker-compose run --rm import-natural-earth &
-$importnaturalpid=$!
+importnaturalpid=$!
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -224,7 +224,7 @@ echo "      : Source code: https://github.com/openmaptiles/import-lakelines "
 echo "      :              https://github.com/lukasmartinelli/osm-lakelines "
 echo "      : Data license: .. "
 docker-compose run --rm import-lakelines
-$importlakepid=$!
+importlakepid=$!
 
 wait $importwaterpid
 wait $importborderpid
