@@ -196,7 +196,8 @@ echo "====> : Start importing water data from http://osmdata.openstreetmap.de/ i
 echo "      : Source code:  https://github.com/openmaptiles/import-water "
 echo "      : Data license: https://osmdata.openstreetmap.de/info/license.html "
 echo "      : Thank you: https://osmdata.openstreetmap.de/info/ "
-docker-compose run --rm import-water
+docker-compose run --rm import-water &
+$importwaterpid=$!
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -204,7 +205,8 @@ echo "====> : Start importing border data from http://openstreetmap.org into Pos
 echo "      : Source code:  https://github.com/openmaptiles/import-osmborder"
 echo "      : Data license: http://www.openstreetmap.org/copyright"
 echo "      : Thank you: https://github.com/pnorman/osmborder "
-docker-compose run --rm import-osmborder
+docker-compose run --rm import-osmborder &
+$importborderpid=$!
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -212,7 +214,8 @@ echo "====> : Start importing  http://www.naturalearthdata.com  into PostgreSQL 
 echo "      : Source code: https://github.com/openmaptiles/import-natural-earth "
 echo "      : Terms-of-use: http://www.naturalearthdata.com/about/terms-of-use  "
 echo "      : Thank you: Natural Earth Contributors! "
-docker-compose run --rm import-natural-earth
+docker-compose run --rm import-natural-earth &
+$importnaturalpid=$!
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -221,6 +224,12 @@ echo "      : Source code: https://github.com/openmaptiles/import-lakelines "
 echo "      :              https://github.com/lukasmartinelli/osm-lakelines "
 echo "      : Data license: .. "
 docker-compose run --rm import-lakelines
+$importlakepid=$!
+
+wait $importwaterpid
+wait $importborderpid
+wait $importnaturalpid
+wait $importlakepid
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
